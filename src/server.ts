@@ -10,7 +10,7 @@ const resolvers = {
 };
 
 const configObject: Config = {
-  typeDefs: gql(readFileSync(__dirname.concat('/schema.gql'), 'utf8')),
+  typeDefs: gql(readFileSync(require.resolve('./schema.gql'), 'utf8')),
   resolvers,
   introspection: true,
   playground: true,
