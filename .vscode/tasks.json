@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": [],
+      "label": "autonpm: start",
+      "detail": "nodemon",
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    }
+  ]
+}

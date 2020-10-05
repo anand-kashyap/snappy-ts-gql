@@ -1,0 +1,27 @@
+{
+  "name": "snappy-typescript-graphql-netlify-api",
+  "version": "0.0.1",
+  "private": "true",
+  "description": "A simple serverless GraphQL API built with TypeScript and deployed on Netlify.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "nodemon",
+    "codegen": "graphql-codegen --config codegen.yml"
+  },
+  "author": "Anand K.",
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.12.2",
+    "@graphql-codegen/introspection": "1.18.0",
+    "@graphql-codegen/typescript": "1.17.10",
+    "@graphql-codegen/typescript-resolvers": "1.17.10",
+    "nodemon": "^2.0.2",
+    "ts-node": "^9.0.0",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "apollo-server": "^2.10.1",
+    "apollo-server-lambda": "^2.10.1"
+  }
+}
