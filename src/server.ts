@@ -20,7 +20,7 @@ const configObject: Config = {
 function createLambdaServer() {
   configObject.typeDefs = gql(
     readFileSync(
-      join(process.env.LAMBDA_TASK_ROOT, 'bundle', 'schema.gql'),
+      join(process.env.LAMBDA_TASK_ROOT, 'graphql', 'schema.gql'),
       'utf8'
     )
   );
