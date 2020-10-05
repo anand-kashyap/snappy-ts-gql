@@ -19,7 +19,10 @@ const configObject: Config = {
 
 function createLambdaServer() {
   configObject.typeDefs = gql(
-    readFileSync(join(process.env.LAMBDA_TASK_ROOT, 'schema.gql'), 'utf8')
+    readFileSync(
+      join(process.env.LAMBDA_TASK_ROOT, 'bundle', 'schema.gql'),
+      'utf8'
+    )
   );
   return new ApolloServerLambda(configObject);
 }
