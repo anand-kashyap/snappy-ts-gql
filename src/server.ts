@@ -1,6 +1,7 @@
 import { ApolloServer, Config, gql } from 'apollo-server';
 import { ApolloServer as ApolloServerLambda } from 'apollo-server-lambda';
 import { readFileSync } from 'fs';
+import { join } from 'path';
 import * as Mutation from './mutation';
 import * as Query from './query';
 
@@ -17,6 +18,9 @@ const configObject: Config = {
 };
 
 function createLambdaServer() {
+  configObject.typeDefs = gql(
+    readFileSync(join(process.env.LAMBDA_TASK_ROOT, 'schema.gql'), 'utf8')
+  );
   return new ApolloServerLambda(configObject);
 }
 

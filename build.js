@@ -1,5 +1,4 @@
 const childProcess = require('child_process');
-const fs = require('fs');
 
 try {
     // Transpile the typescript files
@@ -8,8 +7,6 @@ try {
         console.log('err', err)
     })
     proc.on('close', (code) => {
-        const fils = fs.readdirSync('./functions/bundle');
-        console.log('finished', fils);
         if (code !== 0) {
             throw Error("Build failed")
         }
