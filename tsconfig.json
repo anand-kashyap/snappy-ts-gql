@@ -7,7 +7,7 @@
     "pretty": true,
     "sourceMap": true,
     "target": "es2017",
-    "outDir": "./functions/bundle",
+    "outDir": "functions/graphql",
     "lib": ["es6"],
     "resolveJsonModule": true,
     "types": ["node"],
