@@ -1,3 +1,4 @@
 [build]
   command = "npm run build"
   functions = "functions"
+  environment = { DB_USER="admin", DB_PASS="admin", DB_NAME="snappy", JWT_SALT="$2b$10$HwNikNajaE.2Hwf47wJ1i."}

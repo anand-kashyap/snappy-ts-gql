@@ -1,6 +1,5 @@
-
-import { ApolloServer, gql } from 'apollo-server'
-import { ApolloServer as ApolloServerLambda } from 'apollo-server-lambda'
+import { ApolloServer, Config, gql } from 'apollo-server';
+import { ApolloServer as ApolloServerLambda } from 'apollo-server-lambda';
 
 const typeDefs = gql`
   type Query {
@@ -10,26 +9,23 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    hello: () => "Hi! Love from @stemmlerjs 🤠."
-  }
+    hello: () => 'Hi! Love from @stemmlerjs 🤠.',
+  },
 };
 
-function createLambdaServer () {
-  return new ApolloServerLambda({
-    typeDefs,
-    resolvers,
-    introspection: true,
-    playground: true,
-  });
+const configObject: Config = {
+  typeDefs,
+  resolvers,
+  introspection: true,
+  playground: true,
+};
+
+function createLambdaServer() {
+  return new ApolloServerLambda(configObject);
 }
 
-function createLocalServer () {
-  return new ApolloServer({
-    typeDefs,
-    resolvers,
-    introspection: true,
-    playground: true,
-  });
+function createLocalServer() {
+  return new ApolloServer(configObject);
 }
 
-export { createLambdaServer, createLocalServer }
+export { createLambdaServer, createLocalServer };
