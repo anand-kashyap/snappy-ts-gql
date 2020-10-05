@@ -10,6 +10,9 @@
   },
   "author": "Anand Kashyap <anandkashyap60@gmail.com>",
   "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/mongoose": "^5.7.36",
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.2",
     "ts-node": "^9.0.0",

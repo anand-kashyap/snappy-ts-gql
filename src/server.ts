@@ -1,20 +1,16 @@
 import { ApolloServer, Config, gql } from 'apollo-server';
 import { ApolloServer as ApolloServerLambda } from 'apollo-server-lambda';
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
+import { readFileSync } from 'fs';
+import * as Mutation from 'src/mutation';
+import * as Query from 'src/query';
 
 const resolvers = {
-  Query: {
-    hello: () => 'Hi! Love from @stemmlerjs 🤠.',
-  },
+  Query,
+  Mutation,
 };
 
 const configObject: Config = {
-  typeDefs,
+  typeDefs: gql(readFileSync(__dirname.concat('/schema.gql'), 'utf8')),
   resolvers,
   introspection: true,
   playground: true,

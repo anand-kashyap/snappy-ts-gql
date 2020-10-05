@@ -1,0 +1,23 @@
+type Query {
+  users: [User]!
+  hello: String
+  info: String!
+  feed: [Link!]!
+}
+
+type Mutation {
+  authenticate(email: String!, password: String!): ID
+}
+
+type Link {
+  id: ID
+  desc: String!
+  url: String!
+}
+
+type User {
+  _id: ID!
+  name: String!
+  email: String!
+  password: String!
+}
