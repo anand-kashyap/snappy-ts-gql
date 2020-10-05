@@ -5,7 +5,7 @@
   "description": "A simple serverless GraphQL API built with TypeScript and deployed on Netlify.",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf ./functions/bundle && node build.js && cp ./src/schema.gql ./functions/bundle",
     "start": "nodemon"
   },
   "author": "Anand Kashyap <anandkashyap60@gmail.com>",
