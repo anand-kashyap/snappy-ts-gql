@@ -17,6 +17,7 @@ const conn = () =>
     .catch(console.error);
 
 conn();
+
 mongoose.connection.on('connecting', function () {
   console.log('db connecting');
 });

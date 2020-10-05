@@ -1,7 +1,7 @@
 import { ApolloError } from 'apollo-server';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { User } from 'src/models/user';
+import { User } from '../models/user';
 
 const authenticate = async (_parent, args, context) => {
   context.callbackWaitsForEmptyEventLoop = false;

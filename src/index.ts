@@ -1,4 +1,4 @@
-import { createLocalServer } from 'src/server';
+import { createLocalServer } from './server';
 
 const server = createLocalServer();
 

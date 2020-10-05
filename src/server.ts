@@ -1,8 +1,8 @@
 import { ApolloServer, Config, gql } from 'apollo-server';
 import { ApolloServer as ApolloServerLambda } from 'apollo-server-lambda';
 import { readFileSync } from 'fs';
-import * as Mutation from 'src/mutation';
-import * as Query from 'src/query';
+import * as Mutation from './mutation';
+import * as Query from './query';
 
 const resolvers = {
   Query,

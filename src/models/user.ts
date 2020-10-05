@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose';
-import { db } from 'src/db';
+import { db } from '../db';
+
 const userSchema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
