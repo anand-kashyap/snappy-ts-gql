@@ -1,5 +1,4 @@
-import { Schema } from 'mongoose';
-import { db } from '../db';
+import { model, Schema } from 'mongoose';
 
 const userSchema = new Schema({
   name: { type: String, required: true },
@@ -7,6 +6,6 @@ const userSchema = new Schema({
   password: { type: String, required: true },
 });
 
-const User = db.model('users', userSchema);
+const User = model('users', userSchema);
 
 export { User };

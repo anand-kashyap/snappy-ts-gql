@@ -1,6 +1,7 @@
 import { ApolloServer, Config, gql } from 'apollo-server';
 import { ApolloServer as ApolloServerLambda } from 'apollo-server-lambda';
 import { readFileSync } from 'fs';
+import { connectDev } from './db';
 import * as Mutation from './mutation';
 import * as Query from './query';
 
@@ -21,6 +22,7 @@ function createLambdaServer() {
 }
 
 function createLocalServer() {
+  connectDev();
   return new ApolloServer(configObject);
 }
 

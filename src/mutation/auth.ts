@@ -1,11 +1,12 @@
 import { ApolloError } from 'apollo-server';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
+import { connectDatabase } from '../db';
 import { User } from '../models/user';
 
 const authenticate = async (_parent, args, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
-
+  await connectDatabase();
   const { email, password: pass } = args;
   const user = await User.findOne({ email })
     .lean()
