@@ -2,6 +2,12 @@ import mongoose from 'mongoose';
 
 const { DB_USER, DB_PASS, DB_NAME, PROD } = process.env as any;
 
+const gracefulShutdown = (msg: string, callback: () => void) => {
+  mongoose.connection.close();
+  console.log('❌ Mongo disconnected through ' + msg);
+  callback();
+};
+
 const conn = () => {
   let defOpts = {
     useNewUrlParser: true,
@@ -25,6 +31,19 @@ const conn = () => {
 
   mongoose.connection.on('disconnected', function () {
     console.log('😥 db disconnected');
+  });
+  ['SIGINT', 'SIGTERM'].forEach((f) => {
+    process.on(f, function () {
+      gracefulShutdown('app termination', function () {
+        process.exit(0);
+      });
+    });
+  });
+  // For nodemon restarts
+  process.once('SIGUSR2', function () {
+    gracefulShutdown('nodemon restart', function () {
+      process.kill(process.pid, 'SIGUSR2');
+    });
   });
   return mongoose
     .connect(
