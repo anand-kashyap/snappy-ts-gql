@@ -2,12 +2,9 @@ import { ApolloError } from 'apollo-server';
 import { compare } from 'bcrypt';
 import { StatusCodes as codes } from 'http-status-codes';
 import { sign } from 'jsonwebtoken';
-import { connectDatabase } from '../db';
 import { User } from '../models/user';
 
 const authenticate = async (_parent, args, context) => {
-  await connectDatabase(context);
-
   const { email, password: pass } = args;
   const user = await User.findOne({ email })
     .lean()
