@@ -7,7 +7,7 @@
   "scripts": {
     "build": "rm -rf ./functions && node build.js",
     "start": "nodemon",
-    "deploy": "yarn build && netlify deploy -p -f=functions --dir=."
+    "deploy": "yarn build && netlify deploy -p -f=functions --dir=public"
   },
   "author": "Anand Kashyap <anandkashyap60@gmail.com>",
   "devDependencies": {
