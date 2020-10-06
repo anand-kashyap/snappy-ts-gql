@@ -7,5 +7,4 @@ const handler = graphQLServer.createHandler({
     origin: '*',
   },
 });
-
 export { handler };

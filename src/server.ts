@@ -18,6 +18,7 @@ const configObject: Config = {
 };
 
 function createLambdaServer() {
+  configObject.debug = false;
   return new ApolloServerLambda(configObject);
 }
 
