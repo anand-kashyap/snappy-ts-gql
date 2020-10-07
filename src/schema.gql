@@ -7,6 +7,7 @@ type Query {
 
 type Mutation {
   authenticate(email: String!, password: String!): ID
+  register(name: String!, email: String!, password: String!): User
 }
 
 type Link {
