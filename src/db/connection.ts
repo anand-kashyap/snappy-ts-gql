@@ -1,4 +1,11 @@
+import { Config } from 'apollo-server';
 import mongoose from 'mongoose';
+
+interface SConfig extends Config {
+  context: {
+    callbackWaitsForEmptyEventLoop: boolean;
+  };
+}
 
 let cachedMongoConn = null;
 const { DB_USER, DB_PASS, DB_NAME, PROD } = process.env as any;
@@ -8,30 +15,33 @@ const gracefulShutdown = (msg: string, callback: () => void) => {
   console.log('❌ Mongo disconnected through ' + msg);
   callback();
 };
-if (cachedMongoConn === null || !PROD) {
-  mongoose.connection.on('connected', () => console.log('🍖 db connected'));
-  mongoose.connection.on('error', function (err) {
-    console.log('error in mongo connection: ' + err.message);
-    mongoose.disconnect();
-  });
 
-  mongoose.connection.on('disconnected', function () {
-    console.log('😥 db disconnected');
-  });
-  ['SIGINT', 'SIGTERM'].forEach((f) => {
-    process.on(f, function () {
-      gracefulShutdown('app termination', function () {
-        process.exit(0);
+const logListeners = () => {
+  if (cachedMongoConn === null || !PROD) {
+    mongoose.connection.on('connected', () => console.log('🍖 db connected'));
+    mongoose.connection.on('error', function (err) {
+      console.log('error in mongo connection: ' + err.message);
+      mongoose.disconnect();
+    });
+
+    mongoose.connection.on('disconnected', function () {
+      console.log('😥 db disconnected');
+    });
+    ['SIGINT', 'SIGTERM'].forEach((f) => {
+      process.on(f, function () {
+        gracefulShutdown('app termination', function () {
+          process.exit(0);
+        });
       });
     });
-  });
-  // For nodemon restarts
-  process.once('SIGUSR2', function () {
-    gracefulShutdown('nodemon restart', function () {
-      process.kill(process.pid, 'SIGUSR2');
+    // For nodemon restarts
+    process.once('SIGUSR2', function () {
+      gracefulShutdown('nodemon restart', function () {
+        process.kill(process.pid, 'SIGUSR2');
+      });
     });
-  });
-}
+  }
+};
 
 const conn = () => {
   let defOpts = {
@@ -54,9 +64,9 @@ const conn = () => {
   );
 };
 
-function connectDatabase(context): any {
+const connectDatabase = (context: SConfig['context']) => {
   if (!PROD) {
-    return Promise.resolve();
+    return conn();
   }
   context.callbackWaitsForEmptyEventLoop = false;
   return new Promise((resolve, reject) => {
@@ -70,6 +80,8 @@ function connectDatabase(context): any {
       resolve(cachedMongoConn);
     }
   });
-}
+};
 
-export { connectDatabase, conn as connectDev };
+logListeners();
+
+export { connectDatabase, SConfig };

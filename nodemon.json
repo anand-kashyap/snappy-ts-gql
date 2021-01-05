@@ -2,5 +2,5 @@
   "watch": ["src", "functions"],
   "ext": ".ts, .gql",
   "ignore": [],
-  "exec": "ts-node -r dotenv/config -r tsconfig-paths/register --transpile-only ./src/index.ts"
+  "exec": "ts-node -r dotenv/config --transpile-only ./src/index.ts"
 }

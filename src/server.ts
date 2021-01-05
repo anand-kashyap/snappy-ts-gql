@@ -1,7 +1,7 @@
 import { ApolloServer, Config, gql } from 'apollo-server';
 import { ApolloServer as ApolloServerLambda } from 'apollo-server-lambda';
 import { readFileSync } from 'fs';
-import { connectDatabase, connectDev } from './db';
+import { connectDatabase, SConfig } from './db';
 import * as Mutation from './mutation';
 import * as Query from './query';
 
@@ -15,18 +15,18 @@ const configObject: Config = {
   resolvers,
   introspection: true,
   playground: true,
-  context: async ({ context }) => {
+  context: async ({ context }: { context: SConfig['context'] }) => {
     await connectDatabase(context);
   },
 };
 
 function createLambdaServer() {
+  // * for netlify deployment
   configObject.debug = false;
   return new ApolloServerLambda(configObject);
 }
 
 function createLocalServer() {
-  connectDev();
   return new ApolloServer(configObject);
 }
 
