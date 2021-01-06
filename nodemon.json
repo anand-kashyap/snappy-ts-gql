@@ -1,6 +1,6 @@
 {
   "watch": ["src", "functions"],
   "ext": ".ts, .gql",
-  "ignore": [],
+  "ignore": ["src/spec/*.spec.ts"],
   "exec": "ts-node -r dotenv/config --transpile-only ./src/index.ts"
 }

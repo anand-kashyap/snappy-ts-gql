@@ -70,7 +70,7 @@ const connectDatabase = (context: SConfig['context']) => {
   }
   context.callbackWaitsForEmptyEventLoop = false;
   return new Promise((resolve, reject) => {
-    mongoose.Promise = global.Promise;
+    (mongoose as any).Promise = global.Promise;
     if (!cachedMongoConn) {
       cachedMongoConn = conn().then(
         () => resolve(cachedMongoConn),
