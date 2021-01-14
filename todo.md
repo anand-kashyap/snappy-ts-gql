@@ -1,5 +1,5 @@
 ## todo
 
 - jwt + cookie based auth
-- unit testing setup
+- ~~unit testing setup~~
 - docker/kubernetes setup

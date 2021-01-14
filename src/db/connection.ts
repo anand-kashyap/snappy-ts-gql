@@ -8,7 +8,7 @@ interface SConfig extends Config {
 }
 
 let cachedMongoConn = null;
-const { DB_USER, DB_PASS, DB_NAME, PROD } = process.env as any;
+const { DB_USER, DB_PASS, DB_NAME, PROD, TEST } = process.env as any;
 
 const gracefulShutdown = (msg: string, callback: () => void) => {
   mongoose.connection.close();
@@ -58,10 +58,12 @@ const conn = () => {
   if (PROD) {
     defOpts = { ...defOpts, ...netlify };
   }
-  return mongoose.connect(
-    `mongodb+srv://${DB_USER}:${DB_PASS}@cluster0-yu8za.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`,
-    defOpts
-  );
+  let uri = `mongodb+srv://${DB_USER}:${DB_PASS}@cluster0-yu8za.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
+  if (TEST) {
+    uri = 'mongodb://localhost:27017/test';
+    console.log('🦍 connecting to local test DB');
+  }
+  return mongoose.connect(uri, defOpts);
 };
 
 const connectDatabase = (context: SConfig['context']) => {

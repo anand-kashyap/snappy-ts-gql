@@ -35,4 +35,5 @@ const register = async (_parent, args, context) => {
 
   return User.create(userObj);
 };
+
 export { authenticate, register };
